@@ -1,12 +1,16 @@
-import 'dotenv/config';
+import'dotenv/config';
 import cors from 'cors';
 import express from 'express';
+import router from './src/routes/routes.js'
+import { PrismaClient } from '@prisma/client';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/', router)
 
 app.get('/', (req, res) => {
     return res.send('Received a GET HTTP method');
@@ -24,6 +28,6 @@ app.delete('/', (req, res) => {
     return res.send('Received a DELETE HTTP method');
 });
 
-app.listen(process.env.PORT, () =>
-    console.log(`Example app listening on port ${process.env.PORT}!`),
-);
+app.listen(3000, () => {
+    console.log ("App ExpressJS está online!")
+})
