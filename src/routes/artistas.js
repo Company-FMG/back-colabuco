@@ -15,6 +15,9 @@ router.get('/', async (req, res) => {
     }
 })
 
+   // where: 
+    //    campoNaoNulo: { not: null }
+
 router.post('/', async (req, res) => {
     const { idArtista, cnpj, categoriaArte, politicaEntregaFrete, descricao } = req.body
     try {    
@@ -33,6 +36,18 @@ router.post('/', async (req, res) => {
     }
 })
 
-
+router.put('/', async (req, res) => {
+    const { idArtista } = req.body
+    const { cnpj, categoriaArte, politicaEntregaFrete, descricao } = req.body;
+    try {
+        const artistas = await prisma.artista.update({
+            where: { idArtista:idArtista },
+            data: { cnpj, categoriaArte, politicaEntregaFrete, descricao }
+        })
+        res.json(artistas)
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' })
+    }
+})
 
 export default router;
