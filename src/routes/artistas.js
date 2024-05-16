@@ -52,8 +52,8 @@ router.put('/:idArtista', async (req, res) => {
     }
 })
 
-router.delete('/', async (req, res) => {
-    const { idArtista } = req.body
+router.delete('/:idArtista', async (req, res) => {
+    const { idArtista } = req.params
     try {
         const artista = await prisma.artista.delete({
             where: { 
