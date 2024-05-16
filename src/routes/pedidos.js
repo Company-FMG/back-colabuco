@@ -31,8 +31,8 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/', async (req, res) => { 
-    const { idPedido } = req.body;
+router.put('/:idPedido', async (req, res) => { 
+    const { idPedido } = req.params;
     const { opcoesEntrega, valor } = req.body;
     try {
         const pedidos = await prisma.pedido.update({
@@ -45,14 +45,16 @@ router.put('/', async (req, res) => {
     }
 })
 
-router.delete('/', async (req, res) => {
-    const { idPedido } = req.body;
-    const pedidos = await prisma.pedido.delete({
-        where: {
-            idPedido,
-        }
+router.delete('/:idPedido', async (req, res) => {
+    const { idPedido } = req.params;
+    try {
+        const pedidos = await prisma.pedido.delete({
+            where: { idPedido }
     })
     res.json(pedidos)
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' })
+    }
 })
 
 export default router;

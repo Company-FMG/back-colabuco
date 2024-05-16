@@ -1,7 +1,9 @@
 import express from "express";
 const router = express.Router();
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
+
 router.use(express.json());
 
 router.get("/", async (req, res) => {
