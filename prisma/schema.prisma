@@ -20,3 +20,13 @@ model Pedido {
 
   @@map("pedidos")
 }
+
+model Produto{
+  idProduto String @id @default(uuid())
+  nome String @db.VarChar(50)
+  categoria String @db.VarChar(50)
+  descricao String @db.VarChar(200)
+  dimensao String @db.VarChar(25)
+  preco Decimal @db.Decimal(10,2)
+  @@map("produtos")
+}
