@@ -27,7 +27,6 @@ model Artista {
   categoriaArte        String
   politicaEntregaFrete String
   descricao            String
-  produtos             Produto[]
 
   @@map("artistas")
 }
@@ -39,7 +38,6 @@ model Produto {
   descricao        String   @db.VarChar(200)
   dimensao         String   @db.VarChar(25)
   preco            Decimal  @db.Decimal(10, 2)
-  Artista          Artista? @relation(fields: [artistaIdArtista], references: [idArtista])
   artistaIdArtista String?
 
   @@map("produtos")

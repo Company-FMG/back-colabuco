@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { idArtista, cnpj, categoriaArte, politicaEntregaFrete, descricao, produtos } = req.body
+        const { idArtista, cnpj, categoriaArte, politicaEntregaFrete, descricao } = req.body
         const artistas = await prisma.post.create({
             data: {
                 idArtista,
@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
                 categoriaArte,
                 politicaEntregaFrete, 
                 descricao,
-                produtos,
             },
         })
         res.json(artistas);
@@ -34,3 +33,9 @@ router.post('/', async (req, res) => {
         res.json({ error: 'An error occurred' })
     }
 })
+
+// router.put('/', async (req, res) => {
+
+// })
+
+export default router;
