@@ -16,7 +16,7 @@ datasource db {
 model Pedido {
   idPedido String @id @default(uuid())
   opcoesEntrega String
-  valor Decimal
+  valor Decimal @db.Decimal(10, 2)
 
   @@map("pedidos")
 }
