@@ -17,17 +17,20 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { idArtista, cnpj, categoriaArte, politicaEntregaFrete, descricao } = req.body
+        const { idArtista, cnpj, categoriaArte, politicaEntregaFrete, descricao, produtos } = req.body
         const artistas = await prisma.post.create({
             data: {
                 idArtista,
                 cnpj,
                 categoriaArte,
                 politicaEntregaFrete, 
-                descricao
-            }
-        }); 
+                descricao,
+                produtos,
+            },
+        })
+        res.json(artistas);
+        res.status(201);
     } catch (error) {
-
+        res.json({ error: 'An error occurred' })
     }
 })
