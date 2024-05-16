@@ -20,3 +20,14 @@ model Pedido {
 
   @@map("pedidos")
 }
+
+model Artista {
+  idArtista String @id @default(uuid())
+  cnpj String @unique
+  categoriaArte String
+  politicaEntregaFrete String 
+  descricao String
+  //produtos Produto[]
+
+  @@map("artistas")
+}

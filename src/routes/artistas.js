@@ -14,3 +14,20 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' })
     }
 })
+
+router.post('/', async (req, res) => {
+    try {
+        const { idArtista, cnpj, categoriaArte, politicaEntregaFrete, descricao } = req.body
+        const artistas = await prisma.post.create({
+            data: {
+                idArtista,
+                cnpj,
+                categoriaArte,
+                politicaEntregaFrete, 
+                descricao
+            }
+        }); 
+    } catch (error) {
+
+    }
+})
