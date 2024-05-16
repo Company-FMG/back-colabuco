@@ -14,20 +14,33 @@ datasource db {
 }
 
 model Pedido {
-  idPedido String @id @default(uuid())
+  idPedido      String  @id @default(uuid())
   opcoesEntrega String
-  valor Decimal @db.Decimal(10, 2)
+  valor         Decimal @db.Decimal(10, 2)
 
   @@map("pedidos")
 }
 
 model Artista {
-  idArtista String @id @default(uuid())
-  cnpj String @unique
-  categoriaArte String
-  politicaEntregaFrete String 
-  descricao String
-  //produtos Produto[]
+  idArtista            String    @id @default(uuid())
+  cnpj                 String    @unique
+  categoriaArte        String
+  politicaEntregaFrete String
+  descricao            String
+  produtos             Produto[]
 
   @@map("artistas")
+}
+
+model Produto {
+  idProduto        String   @id @default(uuid())
+  nome             String   @db.VarChar(50)
+  categoria        String   @db.VarChar(50)
+  descricao        String   @db.VarChar(200)
+  dimensao         String   @db.VarChar(25)
+  preco            Decimal  @db.Decimal(10, 2)
+  Artista          Artista? @relation(fields: [artistaIdArtista], references: [idArtista])
+  artistaIdArtista String?
+
+  @@map("produtos")
 }
