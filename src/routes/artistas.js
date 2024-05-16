@@ -33,9 +33,3 @@ router.post('/', async (req, res) => {
         res.json({ error: 'An error occurred' })
     }
 })
-
-// router.put('/', async (req, res) => {
-
-// })
-
-export default router;
