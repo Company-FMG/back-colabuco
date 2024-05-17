@@ -32,13 +32,13 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
-  const { idProduto } = req.body;
+router.put("/:id", async (req, res) => {
+  const id = req.params.id;
   const { nome, categoria, descricao, dimensao, preco } = req.body;
 
   try {
     const produto = await prisma.produto.update({
-      where: { idProduto: idProduto },
+      where: { idProduto: id },
       data: { nome, categoria, descricao, dimensao, preco },
     });
     res.json(produto);
@@ -47,12 +47,12 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {
-  const { idProduto } = req.body;
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
   try {
     const produto = await prisma.produto.delete({
       where: {
-        idProduto,
+        idProduto: id,
       },
     });
     res.json(produto);
