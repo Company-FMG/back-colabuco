@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { idCarrinhoDeCompras, valor, idCliente } = req.body
     try {    
-        const carrinhoDeCompras = await prisma.cliente.create({
+        const carrinhoDeCompras = await prisma.carrinhoDeCompras.create({
             data: {
                 idCarrinhoDeCompras,
                 valor,
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         })
         res.json(carrinhoDeCompras);
     } catch (error) {
-        res.json({ error: 'An error occurred' })
+        res.json({ error: 'An error occurred: ' + error })
     }
 })
 
