@@ -61,4 +61,6 @@ model CarrinhoDeCompras {
   valor               Decimal @db.Decimal(10, 2)
   idCliente           String  @unique
   cliente             Cliente @relation(fields: [idCliente], references: [idCliente])
+
+  @@map("carrinhos_de_compras")
 }
