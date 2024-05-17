@@ -42,3 +42,8 @@ model Produto {
 
   @@map("produtos")
 }
+
+model CarrinhoDeCompras {
+  idCarrinhoDeCompras String  @id @default(uuid())
+  valor               Decimal @db.Decimal(10, 2)
+}
