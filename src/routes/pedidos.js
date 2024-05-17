@@ -16,13 +16,15 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { idPedido, opcoesEntrega, valor } = req.body;
+    const { idPedido, opcoesEntrega, valor, idCliente, idCarrinho } = req.body;
     try {
         const pedidos = await prisma.pedido.create({
             data: {
                 idPedido,
                 opcoesEntrega,
-                valor
+                valor,
+                idCliente,
+                idCarrinho
             }
         });
         res.json(pedidos);
@@ -33,7 +35,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:idPedido', async (req, res) => { 
     const { idPedido } = req.params;
-    const { opcoesEntrega, valor } = req.body;
+    const { opcoesEntrega, valor, idCliente, idCarrinho } = req.body;
     try {
         const pedidos = await prisma.pedido.update({
             where: { idPedido:idPedido },
