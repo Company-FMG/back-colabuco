@@ -14,16 +14,20 @@ datasource db {
 }
 
 model Pedido {
-  idPedido      String  @id @default(uuid())
+  idPedido      String            @id @default(uuid())
   opcoesEntrega String
-  valor         Decimal @db.Decimal(10, 2)
+  valor         Decimal           @db.Decimal(10, 2)
+  idCliente     String            @unique
+  cliente       Cliente           @relation(fields: [idCliente], references: [idCliente])
+  idCarrinho    String            @unique
+  carrinho      CarrinhoDeCompras @relation(fields: [idCarrinho], references: [idCarrinhoDeCompras])
 
   @@map("pedidos")
 }
 
 model Artista {
-  idArtista            String    @id @default(uuid())
-  cnpj                 String    @unique
+  idArtista            String @id @default(uuid())
+  cnpj                 String @unique
   categoriaArte        String
   politicaEntregaFrete String
   descricao            String
@@ -32,13 +36,37 @@ model Artista {
 }
 
 model Produto {
-  idProduto        String   @id @default(uuid())
-  nome             String   @db.VarChar(50)
-  categoria        String   @db.VarChar(50)
-  descricao        String   @db.VarChar(200)
-  dimensao         String   @db.VarChar(25)
-  preco            Decimal  @db.Decimal(10, 2)
+  idProduto        String  @id @default(uuid())
+  nome             String  @db.VarChar(50)
+  categoria        String  @db.VarChar(50)
+  descricao        String  @db.VarChar(200)
+  dimensao         String  @db.VarChar(25)
+  preco            Decimal @db.Decimal(10, 2)
   artistaIdArtista String?
 
   @@map("produtos")
+}
+
+model Cliente {
+  idCliente         String             @id @default(uuid())
+  nome              String
+  email             String             @unique
+  cpf               String             @unique @db.VarChar(11)
+  telefone          String             @db.VarChar(11)
+  senha             String
+  endereco          String
+  carrinhoDeCompras CarrinhoDeCompras?
+  Pedido            Pedido?
+
+  @@map("clientes")
+}
+
+model CarrinhoDeCompras {
+  idCarrinhoDeCompras String  @id @default(uuid())
+  valor               Decimal @db.Decimal(10, 2)
+  idCliente           String  @unique
+  cliente             Cliente @relation(fields: [idCliente], references: [idCliente])
+  Pedido              Pedido?
+
+  @@map("carrinhos_de_compras")
 }

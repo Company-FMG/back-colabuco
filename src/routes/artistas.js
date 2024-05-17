@@ -33,8 +33,8 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/', async (req, res) => {
-    const { idArtista } = req.body
+router.put('/:idArtista', async (req, res) => {
+    const { idArtista } = req.params;
     const { cnpj, categoriaArte, politicaEntregaFrete, descricao } = req.body;
     try {
         const artistas = await prisma.artista.update({
@@ -52,8 +52,8 @@ router.put('/', async (req, res) => {
     }
 })
 
-router.delete('/', async (req, res) => {
-    const { idArtista } = req.body
+router.delete('/:idArtista', async (req, res) => {
+    const { idArtista } = req.params
     try {
         const artista = await prisma.artista.delete({
             where: { 

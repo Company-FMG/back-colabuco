@@ -16,13 +16,15 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { idPedido, opcoesEntrega, valor } = req.body;
+    const { idPedido, opcoesEntrega, valor, idCliente, idCarrinho } = req.body;
     try {
         const pedidos = await prisma.pedido.create({
             data: {
                 idPedido,
                 opcoesEntrega,
-                valor
+                valor,
+                idCliente,
+                idCarrinho
             }
         });
         res.json(pedidos);
@@ -31,9 +33,9 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/', async (req, res) => { 
-    const { idPedido } = req.body;
-    const { opcoesEntrega, valor } = req.body;
+router.put('/:idPedido', async (req, res) => { 
+    const { idPedido } = req.params;
+    const { opcoesEntrega, valor, idCliente, idCarrinho } = req.body;
     try {
         const pedidos = await prisma.pedido.update({
             where: { idPedido:idPedido },
@@ -45,14 +47,16 @@ router.put('/', async (req, res) => {
     }
 })
 
-router.delete('/', async (req, res) => {
-    const { idPedido } = req.body;
-    const pedidos = await prisma.pedido.delete({
-        where: {
-            idPedido,
-        }
+router.delete('/:idPedido', async (req, res) => {
+    const { idPedido } = req.params;
+    try {
+        const pedidos = await prisma.pedido.delete({
+            where: { idPedido }
     })
     res.json(pedidos)
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' })
+    }
 })
 
 export default router;
