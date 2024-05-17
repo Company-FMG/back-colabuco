@@ -42,3 +42,15 @@ model Produto {
 
   @@map("produtos")
 }
+
+model Cliente {
+  idCliente String @id @default(uuid())
+  nome      String
+  email     String @unique
+  cpf       String @unique @db.VarChar(11)
+  telefone  String @db.VarChar(11)
+  senha     String
+  endereco  String
+
+  @@map("clientes")
+}
