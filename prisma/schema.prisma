@@ -43,7 +43,22 @@ model Produto {
   @@map("produtos")
 }
 
+model Cliente {
+  idCliente         String @id @default(uuid())
+  nome              String
+  email             String @unique
+  cpf               String @unique @db.VarChar(11)
+  telefone          String @db.VarChar(11)
+  senha             String
+  endereco          String
+  carrinhoDeCompras CarrinhoDeCompras?
+
+  @@map("clientes")
+}
+
 model CarrinhoDeCompras {
   idCarrinhoDeCompras String  @id @default(uuid())
   valor               Decimal @db.Decimal(10, 2)
+  idCliente           String  @unique
+  cliente             Cliente @relation(fields: [idCliente], references: [idCliente])
 }
