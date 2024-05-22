@@ -57,9 +57,23 @@ model Cliente {
   endereco          String
   carrinhoDeCompras CarrinhoDeCompras?
   Pedido            Pedido?
+  cartoes           Cartao[]           
 
   @@map("clientes")
 }
+
+model Cartao {
+  idCartao   String  @id @default(uuid())
+  numero     String  @unique
+  validade   String
+  cvv        String
+ nomeTitular String
+  clienteId  String
+  cliente    Cliente @relation(fields: [clienteId], references: [idCliente])
+
+  @@map("cartoes")
+}
+
 
 model CarrinhoDeCompras {
   idCarrinhoDeCompras String  @id @default(uuid())
@@ -70,3 +84,5 @@ model CarrinhoDeCompras {
 
   @@map("carrinhos_de_compras")
 }
+
+
